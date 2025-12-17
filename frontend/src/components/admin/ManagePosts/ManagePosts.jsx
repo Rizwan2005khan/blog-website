@@ -3,18 +3,13 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-hot-toast';
 import { format } from 'date-fns';
 import {
-  PencilIcon,
-  TrashIcon,
-  EyeIcon,
-  CheckCircleIcon,
-  XCircleIcon,
-  ExclamationTriangleIcon,
-  MagnifyingGlassIcon,
-  FunnelIcon,
-  PlusIcon,
-  ArrowUpTrayIcon,
-  ArrowDownTrayIcon
-} from '@heroicons/react/24/outline';
+  Edit,
+  Trash2,
+  Eye,
+  Search,
+  Plus,
+  FilePlus,
+} from 'lucide-react';
 import LoadingSpinner from '../../../components/common/LoadingSpinner';
 import PostForm from '../../../components/admin/PostForm';
 
@@ -149,7 +144,7 @@ const ManagePosts = () => {
           onClick={() => setShowForm(true)}
           className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200"
         >
-          <PlusIcon className="h-5 w-5 mr-2" />
+          <Plus className="h-5 w-5 mr-2" />
           New Post
         </button>
       </div>
@@ -158,7 +153,7 @@ const ManagePosts = () => {
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-4">
         <div className="flex flex-col sm:flex-row gap-4">
           <div className="flex-1 relative">
-            <MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
             <input
               type="text"
               value={searchTerm}
@@ -189,7 +184,7 @@ const ManagePosts = () => {
           </div>
         ) : posts.length === 0 ? (
           <div className="text-center py-8">
-            <DocumentPlusIcon className="h-16 w-16 text-gray-400 dark:text-gray-600 mx-auto mb-4" />
+            <FilePlus className="h-16 w-16 text-gray-400 dark:text-gray-600 mx-auto mb-4" />
             <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
               No posts found
             </h3>
@@ -279,7 +274,7 @@ const ManagePosts = () => {
                           className="text-blue-600 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-300 transition-colors duration-200"
                           title="Edit post"
                         >
-                          <PencilIcon className="h-5 w-5" />
+                          <Edit className="h-5 w-5" />
                         </button>
                         <a
                           href={`/post/${post.slug}`}
@@ -288,7 +283,7 @@ const ManagePosts = () => {
                           className="text-green-600 dark:text-green-400 hover:text-green-900 dark:hover:text-green-300 transition-colors duration-200"
                           title="View post"
                         >
-                          <EyeIcon className="h-5 w-5" />
+                          <Eye className="h-5 w-5" />
                         </a>
                         <button
                           onClick={() => handleDelete(post._id)}
@@ -296,7 +291,7 @@ const ManagePosts = () => {
                           title="Delete post"
                           disabled={deletePostMutation.isLoading}
                         >
-                          <TrashIcon className="h-5 w-5" />
+                          <Trash2 className="h-5 w-5" />
                         </button>
                       </div>
                     </td>

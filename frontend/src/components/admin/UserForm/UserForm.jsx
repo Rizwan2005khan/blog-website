@@ -2,14 +2,13 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 import {
-  XMarkIcon,
-  UserIcon,
-  EnvelopeIcon,
-  LockClosedIcon,
-  PhoneIcon,
-  MapPinIcon,
-  PhotoIcon
-} from '@heroicons/react/24/outline';
+  X,
+  User,
+  Mail,
+  Phone,
+  MapPin,
+  Image
+} from 'lucide-react';
 
 const UserForm = ({ user, onClose }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -108,7 +107,7 @@ const UserForm = ({ user, onClose }) => {
             onClick={onClose}
             className="p-2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
           >
-            <XMarkIcon className="h-6 w-6" />
+            <X className="h-6 w-6" />
           </button>
         </div>
 
@@ -129,7 +128,7 @@ const UserForm = ({ user, onClose }) => {
                   />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center">
-                    <UserIcon className="h-10 w-10 text-gray-400" />
+                    <User className="h-10 w-10 text-gray-400" />
                   </div>
                 )}
               </div>
@@ -145,7 +144,7 @@ const UserForm = ({ user, onClose }) => {
                   htmlFor="avatar"
                   className="cursor-pointer inline-flex items-center px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg shadow-sm text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors duration-200"
                 >
-                  <PhotoIcon className="h-4 w-4 mr-2" />
+                  <Image className="h-4 w-4 mr-2" />
                   Change Photo
                 </label>
                 <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
@@ -163,7 +162,7 @@ const UserForm = ({ user, onClose }) => {
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <UserIcon className="h-5 w-5 text-gray-400" />
+                  <User className="h-5 w-5 text-gray-400" />
                 </div>
                 <input
                   {...register('username', {
@@ -199,7 +198,7 @@ const UserForm = ({ user, onClose }) => {
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <EnvelopeIcon className="h-5 w-5 text-gray-400" />
+                  <Mail className="h-5 w-5 text-gray-400" />
                 </div>
                 <input
                   {...register('email', {
@@ -292,7 +291,7 @@ const UserForm = ({ user, onClose }) => {
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <PhoneIcon className="h-5 w-5 text-gray-400" />
+                  <Phone className="h-5 w-5 text-gray-400" />
                 </div>
                 <input
                   {...register('phone', {
@@ -320,7 +319,7 @@ const UserForm = ({ user, onClose }) => {
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <MapPinIcon className="h-5 w-5 text-gray-400" />
+                  <MapPin className="h-5 w-5 text-gray-400" />
                 </div>
                 <input
                   {...register('location', {

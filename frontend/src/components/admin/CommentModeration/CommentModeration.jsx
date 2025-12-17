@@ -3,18 +3,18 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-hot-toast';
 import { format } from 'date-fns';
 import {
-  ChatBubbleLeftRightIcon,
-  CheckCircleIcon,
-  XCircleIcon,
-  TrashIcon,
-  EyeIcon,
-  UserIcon,
-  DocumentTextIcon,
-  MagnifyingGlassIcon,
-  FunnelIcon,
-  ArrowUpTrayIcon,
-  ArrowDownTrayIcon
-} from '@heroicons/react/24/outline';
+  MessageCircle,
+  CheckCircle,
+  XCircle,
+  Trash2,
+  Eye,
+  User,
+  FileText,
+  Search,
+  Filter,
+  Upload,
+  Download
+} from 'lucide-react';
 import LoadingSpinner from '../../../components/common/LoadingSpinner';
 
 const CommentModeration = () => {
@@ -243,7 +243,7 @@ const CommentModeration = () => {
         <div className="p-4 border-b border-gray-200 dark:border-gray-700">
           <div className="flex flex-col sm:flex-row gap-4">
             <div className="flex-1 relative">
-              <MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
               <input
                 type="text"
                 value={searchTerm}
@@ -295,7 +295,7 @@ const CommentModeration = () => {
         <div className="divide-y divide-gray-200 dark:divide-gray-700">
           {comments.length === 0 ? (
             <div className="text-center py-12">
-              <ChatBubbleLeftRightIcon className="h-16 w-16 text-gray-400 dark:text-gray-600 mx-auto mb-4" />
+              <MessageCircle className="h-16 w-16 text-gray-400 dark:text-gray-600 mx-auto mb-4" />
               <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
                 No comments found
               </h3>
@@ -327,7 +327,7 @@ const CommentModeration = () => {
                       />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center">
-                        <UserIcon className="h-5 w-5 text-gray-400" />
+                        <User className="h-5 w-5 text-gray-400" />
                       </div>
                     )}
                   </div>
@@ -365,14 +365,14 @@ const CommentModeration = () => {
                             onClick={() => approveCommentMutation.mutate(comment._id)}
                             className="flex items-center px-3 py-1 bg-green-600 text-white text-xs rounded hover:bg-green-700 transition-colors duration-200"
                           >
-                            <CheckCircleIcon className="h-3 w-3 mr-1" />
+                            <CheckCircle className="h-3 w-3 mr-1" />
                             Approve
                           </button>
                           <button
                             onClick={() => rejectCommentMutation.mutate(comment._id)}
                             className="flex items-center px-3 py-1 bg-red-600 text-white text-xs rounded hover:bg-red-700 transition-colors duration-200"
                           >
-                            <XCircleIcon className="h-3 w-3 mr-1" />
+                            <XCircle className="h-3 w-3 mr-1" />
                             Reject
                           </button>
                         </>
@@ -381,7 +381,7 @@ const CommentModeration = () => {
                         onClick={() => deleteCommentMutation.mutate(comment._id)}
                         className="flex items-center px-3 py-1 bg-gray-600 text-white text-xs rounded hover:bg-gray-700 transition-colors duration-200"
                       >
-                        <TrashIcon className="h-3 w-3 mr-1" />
+                        <Trash2 className="h-3 w-3 mr-1" />
                         Delete
                       </button>
                       <a
@@ -390,7 +390,7 @@ const CommentModeration = () => {
                         rel="noopener noreferrer"
                         className="flex items-center px-3 py-1 text-xs text-blue-600 dark:text-blue-400 hover:underline"
                       >
-                        <EyeIcon className="h-3 w-3 mr-1" />
+                        <Eye className="h-3 w-3 mr-1" />
                         View
                       </a>
                     </div>

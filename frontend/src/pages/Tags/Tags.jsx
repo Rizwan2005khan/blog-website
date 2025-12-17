@@ -2,19 +2,18 @@
 import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useParams, Link } from 'react-router-dom';
-import { tagService } from '../../services/tagService';
-import { postService } from '../../services/postService';
+import  tagService  from '../../services/tags';
+import  postService  from '../../services/posts';
 import LoadingSpinner from '../../components/common/LoadingSpinner';
 import ErrorMessage from '../../components/common/ErrorMessage';
 import PostCard from '../../components/blog/PostCard';
 import { 
-  ChevronRightIcon, 
-  TagIcon, 
-  CalendarIcon, 
-  HashtagIcon,
-  FireIcon,
-  ClockIcon
-} from '@heroicons/react/24/outline';
+  ChevronRight, 
+  Calendar, 
+  Tag,
+  Zap,
+  Clock
+} from 'lucide-react';
 
 const Tags = () => {
   const { tagSlug } = useParams();
@@ -72,13 +71,13 @@ const Tags = () => {
             <Link to="/" className="text-gray-500 hover:text-gray-700">
               Home
             </Link>
-            <ChevronRightIcon className="h-4 w-4 text-gray-400" />
+            <ChevronRight className="h-4 w-4 text-gray-400" />
             <Link to="/tags" className="text-gray-500 hover:text-gray-700">
               Tags
             </Link>
             {tagSlug && (
               <>
-                <ChevronRightIcon className="h-4 w-4 text-gray-400" />
+                <ChevronRight className="h-4 w-4 text-gray-400" />
                 <span className="text-gray-900 font-medium">#{currentTag}</span>
               </>
             )}
@@ -93,7 +92,7 @@ const Tags = () => {
             {/* Tag Cloud */}
             <div className="bg-white rounded-lg shadow-sm border p-6">
               <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                <TagIcon className="h-5 w-5" />
+                <Tag className="h-5 w-5" />
                 Tag Cloud
               </h2>
               
@@ -118,7 +117,7 @@ const Tags = () => {
                         fontSize: size === 'lg' ? '1rem' : size === 'md' ? '0.875rem' : '0.75rem'
                       }}
                     >
-                      <HashtagIcon className="h-3 w-3 mr-1" />
+                      <Tag className="h-3 w-3 mr-1" />
                       {tag.name}
                       <span className="ml-1 text-xs opacity-75">
                         ({tag.postCount || 0})
@@ -133,7 +132,7 @@ const Tags = () => {
             {popularTags?.data && popularTags.data.length > 0 && (
               <div className="bg-white rounded-lg shadow-sm border p-6 mt-6">
                 <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                  <FireIcon className="h-5 w-5 text-orange-500" />
+                  <Zap className="h-5 w-5 text-orange-500" />
                   Trending Tags
                 </h3>
                 
@@ -188,14 +187,14 @@ const Tags = () => {
                   to="/categories"
                   className="flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900 transition-colors"
                 >
-                  <TagIcon className="h-4 w-4" />
+                  <Tag className="h-4 w-4" />
                   Browse Categories
                 </Link>
                 <Link
                   to="/blog"
                   className="flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900 transition-colors"
                 >
-                  <CalendarIcon className="h-4 w-4" />
+                  <Calendar className="h-4 w-4" />
                   All Posts
                 </Link>
               </div>
@@ -216,11 +215,11 @@ const Tags = () => {
                       </h1>
                       <div className="flex items-center gap-4 text-sm text-gray-600">
                         <span className="flex items-center gap-1">
-                          <HashtagIcon className="h-4 w-4" />
+                          <Tag className="h-4 w-4" />
                           {tagPosts?.pagination?.total || 0} posts
                         </span>
                         <span className="flex items-center gap-1">
-                          <ClockIcon className="h-4 w-4" />
+                          <Clock className="h-4 w-4" />
                           Sorted by {sortBy === 'createdAt' ? 'latest' : 'most viewed'}
                         </span>
                       </div>
@@ -283,7 +282,7 @@ const Tags = () => {
                 {tagPosts?.data?.length === 0 && !postsLoading && (
                   <div className="text-center py-12">
                     <div className="text-gray-400 mb-4">
-                      <HashtagIcon className="h-16 w-16 mx-auto" />
+                      <Tag className="h-16 w-16 mx-auto" />
                     </div>
                     <h3 className="text-lg font-medium text-gray-900 mb-2">
                       No posts found
@@ -324,7 +323,7 @@ const Tags = () => {
                         <h3 className="text-lg font-semibold text-gray-900">
                           #{tag.name}
                         </h3>
-                        <HashtagIcon className="h-5 w-5 text-gray-400" />
+                        <Tag className="h-5 w-5 text-gray-400" />
                       </div>
                       
                       {tag.description && (
@@ -337,7 +336,7 @@ const Tags = () => {
                         <span className="text-gray-500">
                           {tag.postCount || 0} posts
                         </span>
-                        <ChevronRightIcon className="h-4 w-4 text-gray-400" />
+                        <ChevronRight className="h-4 w-4 text-gray-400" />
                       </div>
                     </Link>
                   ))}
@@ -347,7 +346,7 @@ const Tags = () => {
                 {popularTags?.data && popularTags.data.length > 0 && (
                   <div className="bg-white rounded-lg shadow-sm border p-6">
                     <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                      <FireIcon className="h-5 w-5 text-orange-500" />
+                      <Zap className="h-5 w-5 text-orange-500" />
                       Most Popular Tags
                     </h2>
                     <div className="flex flex-wrap gap-3">
@@ -357,7 +356,7 @@ const Tags = () => {
                           to={`/tags/${encodeURIComponent(tag.name)}`}
                           className="inline-flex items-center px-4 py-2 rounded-lg font-medium transition-all hover:scale-105 bg-orange-50 text-orange-800 hover:bg-orange-100"
                         >
-                          <HashtagIcon className="h-4 w-4 mr-1" />
+                          <Tag className="h-4 w-4 mr-1" />
                           {tag.name}
                           <span className="ml-2 text-xs font-bold">
                             {tag.postCount || 0}

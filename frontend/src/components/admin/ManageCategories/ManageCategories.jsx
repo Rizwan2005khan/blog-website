@@ -2,14 +2,14 @@ import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-hot-toast';
 import {
-  PencilIcon,
-  TrashIcon,
-  FolderIcon,
-  PlusIcon,
-  MagnifyingGlassIcon,
-  DocumentTextIcon,
-  TagIcon
-} from '@heroicons/react/24/outline';
+  Edit,
+  Trash2,
+  Folder,
+  Plus,
+  Search,
+  FileText,
+  Tag
+} from 'lucide-react';
 import LoadingSpinner from '../../../components/common/LoadingSpinner';
 import CategoryForm from '../../../components/admin/CategoryForm';
 
@@ -102,7 +102,7 @@ const ManageCategories = () => {
           onClick={() => setShowForm(true)}
           className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200"
         >
-          <PlusIcon className="h-5 w-5 mr-2" />
+          <Plus className="h-5 w-5 mr-2" />
           New Category
         </button>
       </div>
@@ -110,7 +110,7 @@ const ManageCategories = () => {
       {/* Search */}
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-4">
         <div className="relative">
-          <MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
           <input
             type="text"
             value={searchTerm}
@@ -129,7 +129,7 @@ const ManageCategories = () => {
           </div>
         ) : categories.length === 0 ? (
           <div className="col-span-full text-center py-12">
-            <FolderIcon className="h-16 w-16 text-gray-400 dark:text-gray-600 mx-auto mb-4" />
+            <Folder className="h-16 w-16 text-gray-400 dark:text-gray-600 mx-auto mb-4" />
             <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
               No categories found
             </h3>
@@ -163,7 +163,7 @@ const ManageCategories = () => {
                       className="p-2 text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200"
                       title="Edit category"
                     >
-                      <PencilIcon className="h-4 w-4" />
+                      <Edit className="h-4 w-4" />
                     </button>
                     <button
                       onClick={() => handleDelete(category._id)}
@@ -171,7 +171,7 @@ const ManageCategories = () => {
                       title="Delete category"
                       disabled={deleteCategoryMutation.isLoading}
                     >
-                      <TrashIcon className="h-4 w-4" />
+                      <Trash2 className="h-4 w-4" />
                     </button>
                   </div>
                 </div>
@@ -189,7 +189,7 @@ const ManageCategories = () => {
                       {category.postsCount || 0} posts
                     </div>
                     <div className="flex items-center">
-                      <TagIcon className="h-4 w-4 mr-1" />
+                      <Tag className="h-4 w-4 mr-1" />
                       {category.slug}
                     </div>
                   </div>

@@ -2,13 +2,12 @@ import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 import {
-  XMarkIcon,
-  PhotoIcon,
-  TagIcon,
-  FolderIcon,
-  EyeIcon,
-  PaperAirplaneIcon
-} from '@heroicons/react/24/outline';
+  X,
+  Tag,
+  Folder,
+  Eye,
+  Send
+} from 'lucide-react';
 
 const PostForm = ({ post, onClose }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -151,14 +150,14 @@ const PostForm = ({ post, onClose }) => {
               onClick={handlePreview}
               className="flex items-center px-3 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors duration-200"
             >
-              <EyeIcon className="h-4 w-4 mr-2" />
+              <Eye className="h-4 w-4 mr-2" />
               {previewMode ? 'Edit' : 'Preview'}
             </button>
             <button
               onClick={onClose}
               className="p-2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
             >
-              <XMarkIcon className="h-6 w-6" />
+              <X className="h-6 w-6" />
             </button>
           </div>
         </div>
@@ -297,7 +296,7 @@ const PostForm = ({ post, onClose }) => {
                   {/* Category */}
                   <div>
                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                      <FolderIcon className="h-4 w-4 inline mr-1" />
+                      <Folder className="h-4 w-4 inline mr-1" />
                       Category *
                     </label>
                     <select
@@ -325,7 +324,7 @@ const PostForm = ({ post, onClose }) => {
                   {/* Tags */}
                   <div>
                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                      <TagIcon className="h-4 w-4 inline mr-1" />
+                      <Tag className="h-4 w-4 inline mr-1" />
                       Tags
                     </label>
                     <input
@@ -436,7 +435,7 @@ const PostForm = ({ post, onClose }) => {
                     </>
                   ) : (
                     <>
-                      <PaperAirplaneIcon className="h-4 w-4 mr-2" />
+                      <Send className="h-4 w-4 mr-2" />
                       {post ? 'Update Post' : 'Publish Post'}
                     </>
                   )}

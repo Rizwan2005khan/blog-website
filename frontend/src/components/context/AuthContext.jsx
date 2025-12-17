@@ -1,13 +1,11 @@
 import { createContext, useContext, useState, useEffect } from 'react';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQueryClient } from '@tanstack/react-query';
 
 const AuthContext = createContext();
 
 export const useAuth = () => {
   const context = useContext(AuthContext);
-  if (!context) {
-    throw new Error('useAuth must be used within an AuthProvider');
-  }
+  if (!context) throw new Error('useAuth must be used within an AuthProvider');
   return context;
 };
 
@@ -16,134 +14,79 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const queryClient = useQueryClient();
 
-  // Check if user is logged in on mount
   useEffect(() => {
     const token = localStorage.getItem('token');
     const userData = localStorage.getItem('user');
-    
+
     if (token && userData) {
       setUser(JSON.parse(userData));
     }
     setLoading(false);
   }, []);
 
-  // Fetch current user data
-  const { data: currentUser } = useQuery({
-    queryKey: ['currentUser'],
-    queryFn: async () => {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/users/me`, {
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
-        }
-      });
-      if (!response.ok) throw new Error('Failed to fetch user');
-      return response.json();
-    },
-    enabled: !!user,
-    staleTime: 5 * 60 * 1000, // 5 minutes
-  });
-
-  // Update user when currentUser data changes
-  useEffect(() => {
-    if (currentUser) {
-      setUser(currentUser);
-      localStorage.setItem('user', JSON.stringify(currentUser));
-    }
-  }, [currentUser]);
-
   const login = async (email, password) => {
-    const response = await fetch(`${import.meta.env.VITE_API_URL}/users/login`, {
+    console.log('[Auth Debug] Environment variable check:');
+  console.log('[Auth Debug] VITE_API_URL:', import.meta.env.VITE_API_URL);
+  console.log('[Auth Debug] All env vars:', import.meta.env);
+  if (!import.meta.env.VITE_API_URL) {
+    console.error('[Auth Debug] ERROR: VITE_API_URL is undefined!');
+    throw new Error('VITE_API_URL environment variable is not set');
+  }
+  
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/auth/login`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),
     });
 
-    if (!response.ok) {
-      const error = await response.json();
-      throw new Error(error.message || 'Login failed');
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.message || 'Login failed');
     }
 
-    const data = await response.json();
+    const data = await res.json();
     setUser(data.user);
     localStorage.setItem('token', data.token);
     localStorage.setItem('user', JSON.stringify(data.user));
-    
     return data;
   };
 
   const register = async (userData) => {
-    const response = await fetch(`${import.meta.env.VITE_API_URL}/users/register`, {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/auth/register`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(userData),
     });
 
-    if (!response.ok) {
-      const error = await response.json();
-      throw new Error(error.message || 'Registration failed');
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.message || 'Registration failed');
     }
 
-    const data = await response.json();
+    const data = await res.json();
     setUser(data.user);
     localStorage.setItem('token', data.token);
     localStorage.setItem('user', JSON.stringify(data.user));
-    
     return data;
   };
 
   const logout = async () => {
     try {
-      await fetch(`${import.meta.env.VITE_API_URL}/users/logout`, {
+      await fetch(`${import.meta.env.VITE_API_URL}/auth/logout`, {
         method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
-        }
+        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       });
-    } catch (error) {
-      console.error('Logout error:', error);
+    } catch (err) {
+      console.error('Logout error:', err);
     } finally {
       setUser(null);
       localStorage.removeItem('token');
       localStorage.removeItem('user');
-      // Clear all queries
       queryClient.clear();
     }
   };
 
-  const updateProfile = async (userData) => {
-    const response = await fetch(`${import.meta.env.VITE_API_URL}/users/profile`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${localStorage.getItem('token')}`
-      },
-      body: JSON.stringify(userData),
-    });
-
-    if (!response.ok) {
-      const error = await response.json();
-      throw new Error(error.message || 'Profile update failed');
-    }
-
-    const data = await response.json();
-    setUser(data.user);
-    localStorage.setItem('user', JSON.stringify(data.user));
-    
-    return data;
-  };
-
-  const value = {
-    user,
-    loading,
-    login,
-    register,
-    logout,
-    updateProfile,
-  };
+  const value = { user, loading, login, register, logout };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

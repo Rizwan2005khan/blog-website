@@ -3,14 +3,12 @@ import { useSearchParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { toast } from 'react-hot-toast';
 import {
-  MagnifyingGlassIcon,
-  FunnelIcon,
-  XMarkIcon,
-  ChevronLeftIcon,
-  ChevronRightIcon,
-  CalendarIcon,
-  EyeIcon
-} from '@heroicons/react/24/outline';
+   Search,
+   Filter,
+   X,
+   ChevronLeft,
+   ChevronRight,
+} from 'lucide-react';
 import LoadingSpinner from '../../components/common/LoadingSpinner';
 import PostCard from '../../components/blog/PostCard';
 import PostListItem from '../../components/blog/PostListItem';
@@ -208,7 +206,7 @@ const Blog = () => {
             {/* Search Form */}
             <form onSubmit={handleSearch} className="flex-1">
               <div className="relative">
-                <MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                < Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
                 <input
                   type="text"
                   value={searchTerm}
@@ -224,7 +222,7 @@ const Blog = () => {
               onClick={() => setShowFilters(!showFilters)}
               className="flex items-center px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200"
             >
-              <FunnelIcon className="h-5 w-5 mr-2" />
+              < Filter className="h-5 w-5 mr-2" />
               Filters
               {(selectedCategory || selectedTag) && (
                 <span className="ml-2 px-2 py-1 bg-blue-600 text-white text-xs rounded-full">
@@ -297,7 +295,7 @@ const Blog = () => {
                     onClick={clearFilters}
                     className="flex items-center px-4 py-2 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 transition-colors duration-200"
                   >
-                    <XMarkIcon className="h-4 w-4 mr-2" />
+                    < X className="h-4 w-4 mr-2" />
                     Clear All Filters
                   </button>
                 </div>
@@ -353,7 +351,7 @@ const Blog = () => {
                       : 'bg-gray-100 dark:bg-gray-700 text-gray-400 dark:text-gray-500 cursor-not-allowed'
                   }`}
                 >
-                  <ChevronLeftIcon className="h-4 w-4 mr-1" />
+                  < ChevronLeft className="h-4 w-4 mr-1" />
                   Previous
                 </button>
 
@@ -397,7 +395,7 @@ const Blog = () => {
                   }`}
                 >
                   Next
-                  <ChevronRightIcon className="h-4 w-4 ml-1" />
+                  < ChevronRight className="h-4 w-4 ml-1" />
                 </button>
               </div>
             )}

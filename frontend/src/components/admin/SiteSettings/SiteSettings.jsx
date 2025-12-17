@@ -2,17 +2,14 @@ import { useState, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-hot-toast';
 import {
-  CogIcon,
-  GlobeAltIcon,
-  PhotoIcon,
-  LinkIcon,
-  BellIcon,
-  ShieldCheckIcon,
-  PaintBrushIcon,
-  DocumentTextIcon,
-  EyeIcon,
-  CheckCircleIcon
-} from '@heroicons/react/24/outline';
+  Settings,
+  Link,
+  Bell,
+  ShieldCheck,
+  Brush,
+  FileText,
+  CheckCircle
+} from 'lucide-react';
 
 const SiteSettings = () => {
   const queryClient = useQueryClient();
@@ -59,12 +56,12 @@ const SiteSettings = () => {
   });
 
   const tabs = [
-    { id: 'general', name: 'General', icon: CogIcon },
-    { id: 'appearance', name: 'Appearance', icon: PaintBrushIcon },
-    { id: 'seo', name: 'SEO', icon: DocumentTextIcon },
-    { id: 'social', name: 'Social Links', icon: LinkIcon },
-    { id: 'notifications', name: 'Notifications', icon: BellIcon },
-    { id: 'security', name: 'Security', icon: ShieldCheckIcon }
+    { id: 'general', name: 'General', icon: Settings },
+    { id: 'appearance', name: 'Appearance', icon: Brush },
+    { id: 'seo', name: 'SEO', icon: FileText },
+    { id: 'social', name: 'Social Links', icon: Link },
+    { id: 'notifications', name: 'Notifications', icon: Bell },
+    { id: 'security', name: 'Security', icon: ShieldCheck }
   ];
 
   const handleImageUpload = (e, type) => {
@@ -603,7 +600,7 @@ const SiteSettings = () => {
               </>
             ) : (
               <>
-                <CheckCircleIcon className="h-4 w-4 mr-2" />
+                <CheckCircle className="h-4 w-4 mr-2" />
                 Save Settings
               </>
             )}

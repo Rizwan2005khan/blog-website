@@ -148,7 +148,10 @@ const userSchema = new mongoose.Schema({
   },
   emailVerified: {
     type: Boolean,
-    default: false
+    default: function() {
+      // Skip verification if environment variable is set
+      return process.env.SKIP_EMAIL_VERIFICATION === 'true';
+    }
   }
 }, {
   timestamps: true,

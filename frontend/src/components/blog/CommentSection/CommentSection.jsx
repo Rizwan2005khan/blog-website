@@ -3,15 +3,15 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-hot-toast';
 import { format } from 'date-fns';
 import {
-  ChatBubbleLeftRightIcon,
-  UserIcon,
-  TrashIcon,
-  PencilIcon,
-  XMarkIcon,
-  CheckIcon
-} from '@heroicons/react/24/outline';
+  MessageCircle,
+  User,
+  Trash2,
+  Edit,
+  X,
+  Check
+} from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
-import LoadingSpinner from '../common/LoadingSpinner';
+import LoadingSpinner from '../../common/LoadingSpinner/LoadingSpinner';
 
 const CommentSection = ({ postId }) => {
   const { user } = useAuth();
@@ -160,7 +160,7 @@ const CommentSection = ({ postId }) => {
               />
             ) : (
               <div className="w-full h-full bg-gray-300 dark:bg-gray-600 flex items-center justify-center">
-                <UserIcon className="h-6 w-6 text-gray-600 dark:text-gray-400" />
+                <User className="h-6 w-6 text-gray-600 dark:text-gray-400" />
               </div>
             )}
           </div>
@@ -183,14 +183,14 @@ const CommentSection = ({ postId }) => {
                       onClick={() => startEditing(comment)}
                       className="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200"
                     >
-                      <PencilIcon className="h-4 w-4" />
+                      <Edit className="h-4 w-4" />
                     </button>
                     {canDelete && (
                       <button
                         onClick={() => handleDeleteComment(comment._id)}
                         className="text-gray-500 dark:text-gray-400 hover:text-red-600 dark:hover:text-red-400"
                       >
-                        <TrashIcon className="h-4 w-4" />
+                        <Trash2 className="h-4 w-4" />
                       </button>
                     )}
                   </div>
@@ -211,13 +211,13 @@ const CommentSection = ({ postId }) => {
                       disabled={updateCommentMutation.isLoading}
                       className="px-3 py-1 bg-blue-600 text-white text-sm rounded hover:bg-blue-700 transition-colors duration-200"
                     >
-                      <CheckIcon className="h-4 w-4" />
+                      <Check className="h-4 w-4" />
                     </button>
                     <button
                       onClick={cancelEditing}
                       className="px-3 py-1 bg-gray-300 dark:bg-gray-600 text-gray-700 dark:text-gray-300 text-sm rounded hover:bg-gray-400 dark:hover:bg-gray-500 transition-colors duration-200"
                     >
-                      <XMarkIcon className="h-4 w-4" />
+                      <X className="h-4 w-4" />
                     </button>
                   </div>
                 </div>
@@ -288,7 +288,7 @@ const CommentSection = ({ postId }) => {
   return (
     <div className="mt-12">
       <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center">
-        <ChatBubbleLeftRightIcon className="h-6 w-6 mr-2" />
+        <MessageCircle className="h-6 w-6 mr-2" />
         Comments ({comments.length})
       </h3>
 

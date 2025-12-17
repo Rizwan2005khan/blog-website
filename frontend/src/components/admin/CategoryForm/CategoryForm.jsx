@@ -2,10 +2,10 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 import {
-  XMarkIcon,
-  FolderIcon,
-  DocumentTextIcon
-} from '@heroicons/react/24/outline';
+   X,
+  Folder,
+  FileText
+} from 'lucide-react';
 
 const CategoryForm = ({ category, onClose }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -76,7 +76,7 @@ const CategoryForm = ({ category, onClose }) => {
             onClick={onClose}
             className="p-2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
           >
-            <XMarkIcon className="h-6 w-6" />
+            <X className="h-6 w-6" />
           </button>
         </div>
 
@@ -86,7 +86,7 @@ const CategoryForm = ({ category, onClose }) => {
             {/* Name */}
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                <FolderIcon className="h-4 w-4 inline mr-1" />
+                <Folder className="h-4 w-4 inline mr-1" />
                 Category Name *
               </label>
               <input
@@ -150,7 +150,7 @@ const CategoryForm = ({ category, onClose }) => {
           {/* Description */}
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              <DocumentTextIcon className="h-4 w-4 inline mr-1" />
+              <FileText className="h-4 w-4 inline mr-1" />
               Description
             </label>
             <textarea

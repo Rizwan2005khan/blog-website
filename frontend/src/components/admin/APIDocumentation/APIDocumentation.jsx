@@ -1,14 +1,14 @@
 import { useState } from 'react';
 import {
-  CodeBracketIcon,
-  DocumentTextIcon,
-  KeyIcon,
-  GlobeAltIcon,
-  ServerIcon,
-  ArrowTopRightOnSquareIcon,
-  ClipboardDocumentIcon,
-  CheckCircleIcon
-} from '@heroicons/react/24/outline';
+  Code,
+  FileText,
+  Key,
+  Globe,
+  Server,
+  ExternalLink,
+  Clipboard,
+  CheckCircle
+} from 'lucide-react';
 
 const APIDocumentation = () => {
   const [selectedEndpoint, setSelectedEndpoint] = useState('auth-login');
@@ -310,7 +310,7 @@ const response = await fetch('https://your-domain.com/api/newsletter/subscribe',
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
           <div className="flex items-center mb-4">
-            <GlobeAltIcon className="h-8 w-8 text-blue-600 dark:text-blue-400" />
+            <Globe className="h-8 w-8 text-blue-600 dark:text-blue-400" />
             <h3 className="ml-3 text-lg font-semibold text-gray-900 dark:text-white">
               Base URL
             </h3>
@@ -322,7 +322,7 @@ const response = await fetch('https://your-domain.com/api/newsletter/subscribe',
 
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
           <div className="flex items-center mb-4">
-            <KeyIcon className="h-8 w-8 text-green-600 dark:text-green-400" />
+            <Key className="h-8 w-8 text-green-600 dark:text-green-400" />
             <h3 className="ml-3 text-lg font-semibold text-gray-900 dark:text-white">
               Authentication
             </h3>
@@ -337,7 +337,7 @@ const response = await fetch('https://your-domain.com/api/newsletter/subscribe',
 
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
           <div className="flex items-center mb-4">
-            <ServerIcon className="h-8 w-8 text-purple-600 dark:text-purple-400" />
+            <Server className="h-8 w-8 text-purple-600 dark:text-purple-400" />
             <h3 className="ml-3 text-lg font-semibold text-gray-900 dark:text-white">
               Content Type
             </h3>
@@ -508,12 +508,12 @@ const response = await fetch('https://your-domain.com/api/newsletter/subscribe',
                       >
                         {copiedCode === endpoints[selectedEndpoint].code ? (
                           <>
-                            <CheckCircleIcon className="h-4 w-4 mr-1" />
+                            <CheckCircle className="h-4 w-4 mr-1" />
                             Copied!
                           </>
                         ) : (
                           <>
-                            <ClipboardDocumentIcon className="h-4 w-4 mr-1" />
+                            <Clipboard className="h-4 w-4 mr-1" />
                             Copy
                           </>
                         )}
@@ -576,7 +576,7 @@ const response = await fetch('https://your-domain.com/api/newsletter/subscribe',
           rel="noopener noreferrer"
           className="flex items-center px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition-colors duration-200"
         >
-          <ArrowTopRightOnSquareIcon className="h-5 w-5 mr-2" />
+          <ExternalLink className="h-5 w-5 mr-2" />
           Postman Collection
         </a>
         <a
@@ -585,7 +585,7 @@ const response = await fetch('https://your-domain.com/api/newsletter/subscribe',
           rel="noopener noreferrer"
           className="flex items-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors duration-200"
         >
-          <DocumentTextIcon className="h-5 w-5 mr-2" />
+          <FileText className="h-5 w-5 mr-2" />
           OpenAPI Spec
         </a>
       </div>

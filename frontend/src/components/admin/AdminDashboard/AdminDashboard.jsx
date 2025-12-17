@@ -1,14 +1,14 @@
 import { useQuery } from '@tanstack/react-query';
 import { format } from 'date-fns';
 import {
-  ArrowTrendingUpIcon,
-  ArrowTrendingDownIcon,
-  UserPlusIcon,
-  DocumentPlusIcon,
-  ChatBubbleLeftRightIcon,
-  EyeIcon,
-  CalendarIcon
-} from '@heroicons/react/24/outline';
+  TrendingUp,
+  TrendingDown,
+  UserPlus,
+  FilePlus,
+  MessageCircle,
+  Eye,
+  Calendar
+} from 'lucide-react';
 import LoadingSpinner from '../../../components/common/LoadingSpinner';
 
 const AdminDashboard = () => {
@@ -77,28 +77,28 @@ const AdminDashboard = () => {
       name: 'Posts This Week',
       value: analytics.postsThisWeek || 0,
       change: analytics.postsChange || 0,
-      icon: DocumentPlusIcon,
+      icon: FilePlus,
       color: 'blue'
     },
     {
       name: 'New Users This Week',
       value: analytics.usersThisWeek || 0,
       change: analytics.usersChange || 0,
-      icon: UserPlusIcon,
+      icon: UserPlus,
       color: 'green'
     },
     {
       name: 'Comments This Week',
       value: analytics.commentsThisWeek || 0,
       change: analytics.commentsChange || 0,
-      icon: ChatBubbleLeftRightIcon,
+      icon: MessageCircle,
       color: 'purple'
     },
     {
       name: 'Total Views This Week',
       value: analytics.viewsThisWeek || 0,
       change: analytics.viewsChange || 0,
-      icon: EyeIcon,
+      icon: Eye,
       color: 'yellow'
     }
   ];
@@ -137,9 +137,9 @@ const AdminDashboard = () => {
                 </p>
                 <div className="flex items-center mt-2">
                   {stat.change > 0 ? (
-                    <ArrowTrendingUpIcon className="h-4 w-4 text-green-500 mr-1" />
+                    <TrendingUp className="h-4 w-4 text-green-500 mr-1" />
                   ) : (
-                    <ArrowTrendingDownIcon className="h-4 w-4 text-red-500 mr-1" />
+                    <TrendingDown className="h-4 w-4 text-red-500 mr-1" />
                   )}
                   <span className={`text-sm ${
                     stat.change > 0 ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'

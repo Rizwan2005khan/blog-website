@@ -2,18 +2,15 @@ import { useState, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-hot-toast';
 import {
-  EnvelopeIcon,
-  PaperAirplaneIcon,
-  UserGroupIcon,
-  ChartBarIcon,
-  PlusIcon,
-  EyeIcon,
-  TrashIcon,
-  PencilIcon,
-  CalendarIcon,
-  CheckCircleIcon,
-  ClockIcon
-} from '@heroicons/react/24/outline';
+  Mail,
+  Send,
+  Users,
+  BarChart3,
+  Plus,
+  Eye,
+  Trash2,
+  Edit
+} from 'lucide-react';
 import LoadingSpinner from '../../../components/common/LoadingSpinner';
 import NewsletterForm from '../../../components/admin/NewsletterForm';
 
@@ -169,9 +166,9 @@ const NewsletterAdmin = () => {
   };
 
   const tabs = [
-    { id: 'subscribers', name: 'Subscribers', icon: UserGroupIcon },
-    { id: 'newsletters', name: 'Newsletters', icon: EnvelopeIcon },
-    { id: 'analytics', name: 'Analytics', icon: ChartBarIcon }
+    { id: 'subscribers', name: 'Subscribers', icon: Users },
+    { id: 'newsletters', name: 'Newsletters', icon: Mail },
+    { id: 'analytics', name: 'Analytics', icon: BarChart3 }
   ];
 
   const renderTabContent = () => {
@@ -288,7 +285,7 @@ const NewsletterAdmin = () => {
                 onClick={handleCreateNewsletter}
                 className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200"
               >
-                <PlusIcon className="h-5 w-5 mr-2" />
+                <Plus className="h-5 w-5 mr-2" />
                 Create Newsletter
               </button>
             </div>
@@ -326,13 +323,13 @@ const NewsletterAdmin = () => {
                             onClick={() => handleEditNewsletter(newsletter)}
                             className="p-2 text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200"
                           >
-                            <PencilIcon className="h-4 w-4" />
+                            <Edit className="h-4 w-4" />
                           </button>
                           <button
                             onClick={() => handleDeleteNewsletter(newsletter._id)}
                             className="p-2 text-gray-500 dark:text-gray-400 hover:text-red-600 dark:hover:text-red-400 transition-colors duration-200"
                           >
-                            <TrashIcon className="h-4 w-4" />
+                            <Trash2 className="h-4 w-4" />
                           </button>
                         </div>
                       </div>
@@ -367,7 +364,7 @@ const NewsletterAdmin = () => {
                               onClick={() => handleSendNewsletter(newsletter._id)}
                               className="flex items-center px-3 py-1 bg-green-600 text-white text-sm rounded hover:bg-green-700 transition-colors duration-200"
                             >
-                              <PaperAirplaneIcon className="h-4 w-4 mr-1" />
+                              <Send className="h-4 w-4 mr-1" />
                               Send
                             </button>
                           )}
@@ -375,7 +372,7 @@ const NewsletterAdmin = () => {
                             onClick={() => {/* Preview logic */}}
                             className="flex items-center px-3 py-1 text-blue-600 dark:text-blue-400 text-sm hover:underline"
                           >
-                            <EyeIcon className="h-4 w-4 mr-1" />
+                            <Eye className="h-4 w-4 mr-1" />
                             Preview
                           </button>
                         </div>

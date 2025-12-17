@@ -2,15 +2,15 @@ import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { format, subDays, startOfDay, endOfDay } from 'date-fns';
 import {
-  ChartBarIcon,
-  UserIcon,
-  DocumentTextIcon,
-  EyeIcon,
-  ChatBubbleLeftRightIcon,
-  CalendarIcon,
-  TrendingUpIcon,
-  TrendingDownIcon
-} from '@heroicons/react/24/outline';
+  BarChart3,
+  User,
+  FileText,
+  Eye,
+  MessageCircle,
+  Calendar,
+  TrendingUp,
+  TrendingDown
+} from 'lucide-react';
 import LoadingSpinner from '../../../components/common/LoadingSpinner';
 import {
   LineChart,
@@ -93,28 +93,28 @@ const AnalyticsDashboard = () => {
       name: 'Total Views',
       value: analytics.totalViews || 0,
       change: analytics.viewsChange || 0,
-      icon: EyeIcon,
+      icon: Eye,
       color: 'blue'
     },
     {
       name: 'Unique Visitors',
       value: analytics.uniqueVisitors || 0,
       change: analytics.visitorsChange || 0,
-      icon: UserIcon,
+      icon: User,
       color: 'green'
     },
     {
       name: 'Total Posts',
       value: analytics.totalPosts || 0,
       change: analytics.postsChange || 0,
-      icon: DocumentTextIcon,
+      icon: FileText,
       color: 'purple'
     },
     {
       name: 'Total Comments',
       value: analytics.totalComments || 0,
       change: analytics.commentsChange || 0,
-      icon: ChatBubbleLeftRightIcon,
+      icon: MessageCircle,
       color: 'yellow'
     }
   ];
@@ -238,9 +238,9 @@ const AnalyticsDashboard = () => {
               </div>
               <div className="flex items-center">
                 {stat.change > 0 ? (
-                  <TrendingUpIcon className="h-4 w-4 text-green-500 mr-1" />
+                  <TrendingUp className="h-4 w-4 text-green-500 mr-1" />
                 ) : (
-                  <TrendingDownIcon className="h-4 w-4 text-red-500 mr-1" />
+                  <TrendingDown className="h-4 w-4 text-red-500 mr-1" />
                 )}
                 <span className={`text-sm ${stat.change > 0 ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`}>
                   {Math.abs(stat.change)}%
@@ -406,7 +406,7 @@ const AnalyticsDashboard = () => {
                 <div key={user._id} className="flex items-center justify-between">
                   <div className="flex items-center space-x-3">
                     <div className="w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-600 flex items-center justify-center">
-                      <UserIcon className="h-4 w-4 text-gray-500 dark:text-gray-400" />
+                      <User className="h-4 w-4 text-gray-500 dark:text-gray-400" />
                     </div>
                     <div className="min-w-0 flex-1">
                       <p className="text-sm font-medium text-gray-900 dark:text-white truncate">

@@ -29,14 +29,22 @@ import {
 
 const router = express.Router();
 
+/* =========================
+   🌍 PUBLIC ROUTES
+========================= */
+
 // Public maintenance status
 router.get('/maintenance/status', getMaintenanceStatus);
 
-// All other routes require admin authentication
+// ✅ PUBLIC: frontend needs this (Header, Footer, SEO)
+router.get('/', getSettings);
+
+/* =========================
+   🔒 ADMIN ROUTES
+========================= */
 router.use(authenticate, authorizeAdmin);
 
-// Main settings routes
-router.get('/', getSettings);
+// Update sections
 router.put('/general', validateUpdateSettings, handleValidationErrors, updateGeneralSettings);
 router.put('/seo', validateUpdateSettings, handleValidationErrors, updateSEOSettings);
 router.put('/social', validateUpdateSettings, handleValidationErrors, updateSocialSettings);
@@ -48,11 +56,11 @@ router.put('/security', validateUpdateSettings, handleValidationErrors, updateSe
 router.put('/performance', validateUpdateSettings, handleValidationErrors, updatePerformanceSettings);
 router.put('/backup', validateUpdateSettings, handleValidationErrors, updateBackupSettings);
 
-// Upload routes
+// Uploads
 router.post('/upload/logo', upload.single('logo'), processImage, uploadLogo);
 router.post('/upload/favicon', upload.single('favicon'), processImage, uploadFavicon);
 
-// Utility routes
+// Utilities
 router.post('/reset', resetSettings);
 router.post('/maintenance', toggleMaintenanceMode);
 router.post('/test-email', testEmailConfiguration);

@@ -5,25 +5,23 @@ import { toast } from 'react-hot-toast';
 import { Helmet } from 'react-helmet-async';
 import DOMPurify from 'dompurify';
 import {
-  CalendarIcon,
-  UserIcon,
-  EyeIcon,
-  ChatBubbleLeftRightIcon,
-  TagIcon,
-  ShareIcon,
-  HeartIcon,
-  BookmarkIcon,
-  ArrowLeftIcon,
-  ArrowRightIcon
-} from '@heroicons/react/24/outline';
+   User,
+   Eye,
+   MessageCircle,
+   Tag,
+   Share,
+   Heart,
+   Bookmark,
+   ArrowLeft,
+} from 'lucide-react';
 import {
-  HeartIcon as HeartSolidIcon,
-  BookmarkIcon as BookmarkSolidIcon
-} from '@heroicons/react/24/solid';
+   Heart as HeartSolidIcon,
+   Bookmark as BookmarkSolidIcon
+} from 'lucide-react';
 import LoadingSpinner from '../../components/common/LoadingSpinner';
-import CommentSection from '../../components/blog/CommentSection';
+import CommentSection from '../../components/blog/CommentSection/CommentSection';
 import PostCard from '../../components/blog/PostCard';
-import { useAuth } from '../../context/AuthContext';
+import { useAuth } from '../../components/context/AuthContext';
 
 const Post = () => {
   const { slug } = useParams();
@@ -189,7 +187,7 @@ const Post = () => {
             to="/blog"
             className="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors duration-200"
           >
-            <ArrowLeftIcon className="mr-2 h-4 w-4" />
+            < ArrowLeft className="mr-2 h-4 w-4" />
             Back to Blog
           </Link>
         </div>
@@ -258,7 +256,7 @@ const Post = () => {
                       />
                     ) : (
                       <div className="w-full h-full bg-gray-300 dark:bg-gray-600 flex items-center justify-center">
-                        <UserIcon className="h-6 w-6 text-gray-600 dark:text-gray-400" />
+                        < User className="h-6 w-6 text-gray-600 dark:text-gray-400" />
                       </div>
                     )}
                   </div>
@@ -281,11 +279,11 @@ const Post = () => {
 
                 <div className="flex items-center space-x-4">
                   <div className="flex items-center space-x-1">
-                    <EyeIcon className="h-5 w-5" />
+                    < Eye className="h-5 w-5" />
                     <span>{post.views} views</span>
                   </div>
                   <div className="flex items-center space-x-1">
-                    <ChatBubbleLeftRightIcon className="h-5 w-5" />
+                    < MessageCircle className="h-5 w-5" />
                     <span>{post.commentsCount} comments</span>
                   </div>
                 </div>
@@ -300,7 +298,7 @@ const Post = () => {
                       to={`/tags/${tag}`}
                       className="inline-flex items-center px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-sm rounded-full hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors duration-200"
                     >
-                      <TagIcon className="h-4 w-4 mr-1" />
+                      < Tag className="h-4 w-4 mr-1" />
                       {tag}
                     </Link>
                   ))}
@@ -322,7 +320,7 @@ const Post = () => {
                     {isLiked ? (
                       <HeartSolidIcon className="h-5 w-5" />
                     ) : (
-                      <HeartIcon className="h-5 w-5" />
+                      < Heart className="h-5 w-5" />
                     )}
                     <span>{post.likes || 0}</span>
                   </button>
@@ -339,7 +337,7 @@ const Post = () => {
                     {isBookmarked ? (
                       <BookmarkSolidIcon className="h-5 w-5" />
                     ) : (
-                      <BookmarkIcon className="h-5 w-5" />
+                      < Bookmark className="h-5 w-5" />
                     )}
                     <span>Save</span>
                   </button>
@@ -351,7 +349,7 @@ const Post = () => {
                     onClick={() => setShowShareMenu(!showShareMenu)}
                     className="flex items-center space-x-2 px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors duration-200"
                   >
-                    <ShareIcon className="h-5 w-5" />
+                    < Share className="h-5 w-5" />
                     <span>Share</span>
                   </button>
 
@@ -420,7 +418,7 @@ const Post = () => {
                     />
                   ) : (
                     <div className="w-full h-full bg-gray-300 dark:bg-gray-600 flex items-center justify-center">
-                      <UserIcon className="h-8 w-8 text-gray-600 dark:text-gray-400" />
+                      < User className="h-8 w-8 text-gray-600 dark:text-gray-400" />
                     </div>
                   )}
                 </div>

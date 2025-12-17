@@ -1,15 +1,15 @@
 import { useState } from 'react';
-import { useAuth } from '../../../context/AuthContext';
+import { useAuth } from '../../../components/context/AuthContext';
 import { toast } from 'react-hot-toast';
 import {
-  BellIcon,
-  MoonIcon,
-  SunIcon,
-  ShieldCheckIcon,
-  KeyIcon,
-  TrashIcon,
-  ExclamationTriangleIcon
-} from '@heroicons/react/24/outline';
+  Bell,
+  Moon,
+  Sun,
+  ShieldCheck,
+  Key,
+  Trash2,
+  AlertTriangle
+} from 'lucide-react';
 
 const ProfileSettings = () => {
   const { user, logout } = useAuth();
@@ -41,10 +41,10 @@ const ProfileSettings = () => {
   };
 
   const sections = [
-    { id: 'preferences', name: 'Preferences', icon: BellIcon },
-    { id: 'privacy', name: 'Privacy', icon: ShieldCheckIcon },
-    { id: 'security', name: 'Security', icon: KeyIcon },
-    { id: 'danger', name: 'Danger Zone', icon: TrashIcon }
+    { id: 'preferences', name: 'Preferences', icon: Bell },
+    { id: 'privacy', name: 'Privacy', icon: ShieldCheck },
+    { id: 'security', name: 'Security', icon: Key },
+    { id: 'danger', name: 'Danger Zone', icon: Trash2 }
   ];
 
   const renderContent = () => {
@@ -90,11 +90,11 @@ const ProfileSettings = () => {
               </h3>
               <div className="flex space-x-4">
                 <button className="flex items-center px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200">
-                  <SunIcon className="h-5 w-5 mr-2" />
+                  <Sun className="h-5 w-5 mr-2" />
                   Light
                 </button>
                 <button className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg">
-                  <MoonIcon className="h-5 w-5 mr-2" />
+                  <Moon className="h-5 w-5 mr-2" />
                   Dark
                 </button>
               </div>
@@ -259,7 +259,7 @@ const ProfileSettings = () => {
           <div className="space-y-6">
             <div className="p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
               <div className="flex items-start">
-                <ExclamationTriangleIcon className="h-5 w-5 text-red-600 dark:text-red-400 mt-0.5" />
+                <AlertTriangle className="h-5 w-5 text-red-600 dark:text-red-400 mt-0.5" />
                 <div className="ml-3">
                   <h3 className="text-sm font-medium text-red-800 dark:text-red-400">
                     Danger Zone

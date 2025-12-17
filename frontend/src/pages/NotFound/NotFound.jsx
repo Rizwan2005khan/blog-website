@@ -2,13 +2,13 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { 
-  HomeIcon, 
-  ArrowLeftIcon, 
-  MagnifyingGlassIcon,
-  DocumentTextIcon,
-  ChatBubbleLeftRightIcon,
-  EnvelopeIcon
-} from '@heroicons/react/24/outline';
+   Home, 
+   ArrowLeft, 
+   Search,
+   FileText,
+   MessageCircle,
+   Mail
+} from 'lucide-react';
 
 const NotFound = () => {
   const navigate = useNavigate();
@@ -19,28 +19,28 @@ const NotFound = () => {
 
   const quickLinks = [
     {
-      icon: HomeIcon,
+      icon:  Home,
       title: 'Homepage',
       description: 'Return to our main page',
       href: '/',
       color: 'text-blue-600 hover:text-blue-700 bg-blue-50 hover:bg-blue-100'
     },
     {
-      icon: DocumentTextIcon,
+      icon:  FileText,
       title: 'Blog',
       description: 'Browse our latest posts',
       href: '/blog',
       color: 'text-green-600 hover:text-green-700 bg-green-50 hover:bg-green-100'
     },
     {
-      icon: ChatBubbleLeftRightIcon,
+      icon:  MessageCircle,
       title: 'Contact',
       description: 'Get in touch with us',
       href: '/contact',
       color: 'text-purple-600 hover:text-purple-700 bg-purple-50 hover:bg-purple-100'
     },
     {
-      icon: MagnifyingGlassIcon,
+      icon:  Search,
       title: 'Search',
       description: 'Find what you need',
       href: '/search',
@@ -80,7 +80,7 @@ const NotFound = () => {
               onClick={handleGoBack}
               className="inline-flex items-center px-6 py-3 bg-white border-2 border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 hover:border-gray-400 transition-all font-medium"
             >
-              <ArrowLeftIcon className="h-5 w-5 mr-2" />
+              < ArrowLeft className="h-5 w-5 mr-2" />
               Go Back
             </button>
             
@@ -88,7 +88,7 @@ const NotFound = () => {
               to="/"
               className="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all font-medium shadow-lg hover:shadow-xl"
             >
-              <HomeIcon className="h-5 w-5 mr-2" />
+              < Home className="h-5 w-5 mr-2" />
               Go Home
             </Link>
           </div>
@@ -96,7 +96,7 @@ const NotFound = () => {
           {/* Search Box */}
           <div className="max-w-md mx-auto">
             <div className="relative">
-              <MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+              < Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
               <input
                 type="text"
                 placeholder="Search our blog..."
@@ -191,7 +191,7 @@ const NotFound = () => {
             to="/contact"
             className="inline-flex items-center px-6 py-3 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-all font-medium"
           >
-            <EnvelopeIcon className="h-5 w-5 mr-2" />
+            < Mail className="h-5 w-5 mr-2" />
             Contact Support
           </Link>
         </div>

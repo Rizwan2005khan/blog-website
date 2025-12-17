@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
 import { 
-  UserIcon, 
-  CalendarIcon, 
-  EyeIcon,
-  ChatBubbleLeftRightIcon,
-  TagIcon 
-} from '@heroicons/react/24/outline';
+  Users, 
+  Calendar, 
+  Eye,
+  MessageCircle,
+  Tag 
+} from 'lucide-react';
 
 const PostCard = ({ post }) => {
   return (
@@ -30,11 +30,11 @@ const PostCard = ({ post }) => {
         {/* Post Meta */}
         <div className="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400 mb-3">
           <div className="flex items-center space-x-2">
-            <UserIcon className="h-4 w-4" />
+            <Users className="h-4 w-4" />
             <span>{post.author?.username || 'Unknown'}</span>
           </div>
           <div className="flex items-center space-x-2">
-            <CalendarIcon className="h-4 w-4" />
+            <Calendar className="h-4 w-4" />
             <time dateTime={post.createdAt}>
               {format(new Date(post.createdAt), 'MMM dd, yyyy')}
             </time>
@@ -62,7 +62,7 @@ const PostCard = ({ post }) => {
                 to={`/tags/${tag}`}
                 className="inline-flex items-center px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-xs rounded hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors duration-200"
               >
-                <TagIcon className="h-3 w-3 mr-1" />
+                <Tag className="h-3 w-3 mr-1" />
                 {tag}
               </Link>
             ))}
@@ -73,11 +73,11 @@ const PostCard = ({ post }) => {
         <div className="flex items-center justify-between pt-4 border-t border-gray-200 dark:border-gray-700">
           <div className="flex items-center space-x-4 text-sm text-gray-500 dark:text-gray-400">
             <div className="flex items-center space-x-1">
-              <EyeIcon className="h-4 w-4" />
+              <Eye className="h-4 w-4" />
               <span>{post.views || 0}</span>
             </div>
             <div className="flex items-center space-x-1">
-              <ChatBubbleLeftRightIcon className="h-4 w-4" />
+              <MessageCircle className="h-4 w-4" />
               <span>{post.commentsCount || 0}</span>
             </div>
           </div>

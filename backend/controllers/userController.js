@@ -5,6 +5,7 @@ import crypto from 'crypto';
 import nodemailer from 'nodemailer';
 import { OAuth2Client } from 'google-auth-library';
 import speakeasy from 'speakeasy';
+import bcrypt from 'bcryptjs';
 import QRCode from 'qrcode';
 
 // Configure email transporter
@@ -70,6 +71,9 @@ export const register = async (req, res) => {
       });
     }
 
+    // Check if we should skip email verification
+    const skipVerification = process.env.SKIP_EMAIL_VERIFICATION === 'true';
+
     // Create new user
     const user = await User.create({
       username: username.toLowerCase(),
@@ -78,56 +82,79 @@ export const register = async (req, res) => {
       firstName,
       lastName,
       bio: bio || '',
-      socialLinks: socialLinks || {}
+      socialLinks: socialLinks || {},
+      emailVerified: skipVerification // Set based on environment variable
     });
-
-    // Generate email verification token
-    const verificationToken = user.createEmailVerificationToken();
-    await user.save();
-
-    // Send verification email
-    const verificationUrl = `${process.env.FRONTEND_URL}/verify-email/${verificationToken}`;
-    
-    try {
-      await transporter.sendMail({
-        from: `"${process.env.SITE_NAME}" <${process.env.SMTP_USER}>`,
-        to: user.email,
-        subject: 'Verify your email',
-        html: `
-          <h1>Welcome to ${process.env.SITE_NAME}!</h1>
-          <p>Please click the link below to verify your email address:</p>
-          <a href="${verificationUrl}" style="background-color: #1976d2; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">Verify Email</a>
-          <p>If the link doesn't work, copy and paste this URL: ${verificationUrl}</p>
-        `
-      });
-    } catch (emailError) {
-      console.error('Email send error:', emailError);
-    }
 
     // Generate tokens
     const token = generateToken(user._id);
     const refreshToken = generateRefreshToken(user._id);
 
-    // Send response
-    res.status(201).json({
-      success: true,
-      message: 'User registered successfully. Please check your email for verification.',
-      data: {
-        user: {
-          id: user._id,
-          username: user.username,
-          email: user.email,
-          firstName: user.firstName,
-          lastName: user.lastName,
-          role: user.role,
-          avatar: user.avatar,
-          bio: user.bio,
-          emailVerified: user.emailVerified
-        },
-        token,
-        refreshToken
+    if (!skipVerification) {
+      // Only send verification email if not skipping
+      const verificationToken = user.createEmailVerificationToken();
+      await user.save();
+
+      // Send verification email
+      const verificationUrl = `${process.env.FRONTEND_URL}/verify-email/${verificationToken}`;
+      
+      try {
+        await transporter.sendMail({
+          from: `"${process.env.SITE_NAME}" <${process.env.SMTP_USER}>`,
+          to: user.email,
+          subject: 'Verify your email',
+          html: `
+            <h1>Welcome to ${process.env.SITE_NAME}!</h1>
+            <p>Please click the link below to verify your email address:</p>
+            <a href="${verificationUrl}" style="background-color: #1976d2; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">Verify Email</a>
+            <p>If the link doesn't work, copy and paste this URL: ${verificationUrl}</p>
+          `
+        });
+      } catch (emailError) {
+        console.error('Email send error:', emailError);
       }
-    });
+
+      res.status(201).json({
+        success: true,
+        message: 'User registered successfully. Please check your email for verification.',
+        data: {
+          user: {
+            id: user._id,
+            username: user.username,
+            email: user.email,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            role: user.role,
+            avatar: user.avatar,
+            bio: user.bio,
+            emailVerified: user.emailVerified
+          },
+          token,
+          refreshToken
+        }
+      });
+    } else {
+      // Skip verification - user can login immediately
+      res.status(201).json({
+        success: true,
+        message: 'User registered successfully.',
+        data: {
+          user: {
+            id: user._id,
+            username: user.username,
+            email: user.email,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            role: user.role,
+            avatar: user.avatar,
+            bio: user.bio,
+            emailVerified: true // Already verified due to skip flag
+          },
+          token,
+          refreshToken
+        }
+      });
+    }
 
   } catch (error) {
     console.error('Registration error:', error);
@@ -143,8 +170,12 @@ export const register = async (req, res) => {
 // @access  Public
 export const login = async (req, res) => {
   try {
+    console.log(`[Auth Debug] Login attempt received`);
+    console.log(`[Auth Debug] Request body:`, req.body);
+    
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
+      console.log(`[Auth Debug] Validation errors:`, errors.array());
       return res.status(400).json({
         success: false,
         errors: errors.array()
@@ -153,67 +184,83 @@ export const login = async (req, res) => {
 
     const { email, password, rememberMe } = req.body;
 
-    // Find user and include password for comparison
-    const user = await User.findOne({ email: email.toLowerCase() }).select('+password');
-    
-    if (!user) {
-      return res.status(401).json({
-        success: false,
-        message: 'Invalid credentials'
+    if (!email || !password) {
+      console.log(`[Auth Debug] Missing credentials`);
+      return res.status(400).json({ 
+        success: false, 
+        message: 'Email and password are required' 
       });
     }
 
+    console.log(`[Auth Debug] Looking for user: ${email}`);
+    const user = await User.findOne({ email: email.toLowerCase() }).select('+password');
+    
+    if (!user) {
+      console.log(`[Auth Debug] User not found: ${email}`);
+      return res.status(401).json({ 
+        success: false, 
+        message: 'Invalid credentials' 
+      });
+    }
+
+    console.log(`[Auth Debug] User found, checking account status`);
+    
     // Check if account is locked
     if (user.isLocked) {
+      console.log(`[Auth Debug] Account locked for user: ${email}`);
       return res.status(423).json({
         success: false,
         message: 'Account is temporarily locked due to too many failed login attempts'
       });
     }
 
-    // Check password
+    console.log(`[Auth Debug] Checking password`);
     const isPasswordValid = await user.comparePassword(password);
     
     if (!isPasswordValid) {
+      console.log(`[Auth Debug] Invalid password for user: ${email}`);
       // Increment login attempts
       await user.incLoginAttempts();
       
-      return res.status(401).json({
-        success: false,
-        message: 'Invalid credentials'
+      return res.status(401).json({ 
+        success: false, 
+        message: 'Invalid credentials' 
       });
     }
 
-    // Check if email is verified
-    if (!user.emailVerified) {
-      return res.status(401).json({
-        success: false,
-        message: 'Please verify your email address before logging in'
-      });
+    // Skip email verification check if environment variable is set
+    if (process.env.SKIP_EMAIL_VERIFICATION !== 'true') {
+      console.log(`[Auth Debug] Checking email verification`);
+      
+      // Check if email is verified
+      if (!user.emailVerified) {
+        console.log(`[Auth Debug] Email not verified for user: ${email}`);
+        return res.status(401).json({
+          success: false,
+          message: 'Please verify your email address before logging in'
+        });
+      }
     }
 
-    // Check account status
-    if (user.status !== 'active') {
-      return res.status(401).json({
-        success: false,
-        message: 'Your account is not active. Please contact support.'
-      });
-    }
-
+    console.log(`[Auth Debug] Account active, resetting login attempts`);
+    
     // Reset login attempts on successful login
     await user.resetLoginAttempts();
 
+    console.log(`[Auth Debug] Updating last login`);
+    
     // Update last login
     user.lastLogin = new Date();
     await user.save();
 
+    console.log(`[Auth Debug] Generating tokens`);
+    
     // Generate tokens
     const token = generateToken(user._id);
     const refreshToken = generateRefreshToken(user._id);
 
-    // Set longer expiration for refresh token if remember me is true
-    const refreshTokenExpire = rememberMe ? '30d' : '7d';
-
+    console.log(`[Auth Debug] Login successful for: ${email}`);
+    
     res.json({
       success: true,
       message: 'Login successful',
@@ -233,15 +280,17 @@ export const login = async (req, res) => {
         },
         token,
         refreshToken,
-        refreshTokenExpire
+        refreshTokenExpire: rememberMe ? '30d' : '7d'
       }
     });
 
   } catch (error) {
-    console.error('Login error:', error);
-    res.status(500).json({
-      success: false,
-      message: 'Server error during login'
+    console.error(`[Auth Debug] Login error:`, error);
+    console.error(`[Auth Debug] Error stack:`, error.stack);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Internal server error during login',
+      error: error.message 
     });
   }
 };
@@ -415,6 +464,7 @@ export const verifyEmail = async (req, res) => {
 // @desc    Resend verification email
 // @route   POST /api/auth/resend-verification
 // @access  Public
+// In your userController.js
 export const resendVerificationEmail = async (req, res) => {
   try {
     const { email } = req.body;
@@ -451,6 +501,7 @@ export const resendVerificationEmail = async (req, res) => {
           <h1>Welcome to ${process.env.SITE_NAME}!</h1>
           <p>Please click the link below to verify your email address:</p>
           <a href="${verificationUrl}" style="background-color: #1976d2; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">Verify Email</a>
+          <p>If the link doesn't work, copy and paste this URL: ${verificationUrl}</p>
         `
       });
     } catch (emailError) {

@@ -1,23 +1,23 @@
 import { useState } from 'react';
 import { Outlet, Link, useLocation, NavLink } from 'react-router-dom';
-import { useAuth } from '../../../context/AuthContext';
+import { useAuth } from '../../../components/context/AuthContext';
 import { useQuery } from '@tanstack/react-query';
 import {
-  Bars3Icon,
-  XMarkIcon,
-  HomeIcon,
-  DocumentTextIcon,
-  UsersIcon,
-  TagIcon,
-  FolderIcon,
-  CogIcon,
-  ChartBarIcon,
-  NewspaperIcon,
-  ChatBubbleLeftRightIcon,
-  BellIcon,
-  UserCircleIcon,
-  ArrowRightOnRectangleIcon
-} from '@heroicons/react/24/outline';
+   Menu,
+  X,
+  Home,
+  FileText,
+  Users,
+  Tag,
+  Folder,
+  Settings,
+  BarChart3,
+  Newspaper,
+  MessageCircle,
+  Bell,
+  UserCircle,
+  LogOut
+} from 'lucide-react';
 
 const AdminLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -40,15 +40,15 @@ const AdminLayout = () => {
   });
 
   const navigation = [
-    { name: 'Dashboard', href: '/admin', icon: HomeIcon },
-    { name: 'Posts', href: '/admin/posts', icon: DocumentTextIcon },
-    { name: 'Users', href: '/admin/users', icon: UsersIcon },
-    { name: 'Categories', href: '/admin/categories', icon: FolderIcon },
-    { name: 'Tags', href: '/admin/tags', icon: TagIcon },
-    { name: 'Comments', href: '/admin/comments', icon: ChatBubbleLeftRightIcon },
-    { name: 'Newsletter', href: '/admin/newsletter', icon: NewspaperIcon },
-    { name: 'Analytics', href: '/admin/analytics', icon: ChartBarIcon },
-    { name: 'Settings', href: '/admin/settings', icon: CogIcon },
+    { name: 'Dashboard', href: '/admin', icon: Home },
+    { name: 'Posts', href: '/admin/posts', icon: FileText },
+    { name: 'Users', href: '/admin/users', icon: Users },
+    { name: 'Categories', href: '/admin/categories', icon: Folder },
+    { name: 'Tags', href: '/admin/tags', icon: Tag },
+    { name: 'Comments', href: '/admin/comments', icon: MessageCircle },
+    { name: 'Newsletter', href: '/admin/newsletter', icon: Newspaper },
+    { name: 'Analytics', href: '/admin/analytics', icon: BarChart3 },
+    { name: 'Settings', href: '/admin/settings', icon: Settings },
   ];
 
   const isActive = (path) => location.pathname === path;
@@ -82,7 +82,7 @@ const AdminLayout = () => {
             onClick={() => setSidebarOpen(false)}
             className="lg:hidden p-2 rounded-md text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
           >
-            <XMarkIcon className="h-6 w-6" />
+            <X className="h-6 w-6" />
           </button>
         </div>
 
@@ -120,7 +120,7 @@ const AdminLayout = () => {
                   />
                 ) : (
                   <div className="w-full h-full bg-gray-300 dark:bg-gray-600 flex items-center justify-center">
-                    <UserCircleIcon className="h-6 w-6 text-gray-600 dark:text-gray-400" />
+                    <UserCircle className="h-6 w-6 text-gray-600 dark:text-gray-400" />
                   </div>
                 )}
               </div>
@@ -138,7 +138,7 @@ const AdminLayout = () => {
               onClick={handleLogout}
               className="w-full flex items-center justify-center px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors duration-200"
             >
-              <ArrowRightOnRectangleIcon className="mr-2 h-4 w-4" />
+              <LogOut className="mr-2 h-4 w-4" />
               Logout
             </button>
           </div>
@@ -155,7 +155,7 @@ const AdminLayout = () => {
                 onClick={() => setSidebarOpen(true)}
                 className="lg:hidden p-2 rounded-md text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
               >
-                <Bars3Icon className="h-6 w-6" />
+                <Menu className="h-6 w-6" />
               </button>
               <h1 className="ml-2 text-xl font-semibold text-gray-900 dark:text-white">
                 Admin Dashboard
@@ -165,7 +165,7 @@ const AdminLayout = () => {
             <div className="flex items-center space-x-4">
               {/* Notifications */}
               <button className="p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200">
-                <BellIcon className="h-6 w-6" />
+                <Bell className="h-6 w-6" />
               </button>
 
               {/* Back to Site */}
@@ -217,7 +217,7 @@ const AdminLayout = () => {
             <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
               <div className="flex items-center">
                 <div className="p-3 rounded-full bg-purple-100 dark:bg-purple-900">
-                  <ChatBubbleLeftRightIcon className="h-6 w-6 text-purple-600 dark:text-purple-400" />
+                  <MessageCircle className="h-6 w-6 text-purple-600 dark:text-purple-400" />
                 </div>
                 <div className="ml-4">
                   <p className="text-sm font-medium text-gray-600 dark:text-gray-400">

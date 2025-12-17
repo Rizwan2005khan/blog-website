@@ -3,18 +3,12 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-hot-toast';
 import { format } from 'date-fns';
 import {
-  PencilIcon,
-  TrashIcon,
-  ShieldCheckIcon,
-  UserIcon,
-  EnvelopeIcon,
-  CalendarIcon,
-  MagnifyingGlassIcon,
-  PlusIcon,
-  CheckCircleIcon,
-  XCircleIcon,
-  ExclamationTriangleIcon
-} from '@heroicons/react/24/outline';
+  Edit,
+  Trash2,
+  User,
+  Search,
+  Plus
+} from 'lucide-react';
 import LoadingSpinner from '../../../components/common/LoadingSpinner';
 import UserForm from '../../../components/admin/UserForm';
 
@@ -184,7 +178,7 @@ const ManageUsers = () => {
           onClick={() => setShowForm(true)}
           className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200"
         >
-          <PlusIcon className="h-5 w-5 mr-2" />
+          <Plus className="h-5 w-5 mr-2" />
           Add User
         </button>
       </div>
@@ -193,7 +187,7 @@ const ManageUsers = () => {
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-4">
         <div className="flex flex-col sm:flex-row gap-4">
           <div className="flex-1 relative">
-            <MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
             <input
               type="text"
               value={searchTerm}
@@ -233,7 +227,7 @@ const ManageUsers = () => {
           </div>
         ) : users.length === 0 ? (
           <div className="text-center py-8">
-            <UserIcon className="h-16 w-16 text-gray-400 dark:text-gray-600 mx-auto mb-4" />
+            <User className="h-16 w-16 text-gray-400 dark:text-gray-600 mx-auto mb-4" />
             <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
               No users found
             </h3>
@@ -334,7 +328,7 @@ const ManageUsers = () => {
                           className="text-blue-600 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-300 transition-colors duration-200"
                           title="Edit user"
                         >
-                          <PencilIcon className="h-5 w-5" />
+                          <Edit className="h-5 w-5" />
                         </button>
                         <button
                           onClick={() => handleDelete(user._id)}
@@ -342,7 +336,7 @@ const ManageUsers = () => {
                           title="Delete user"
                           disabled={deleteUserMutation.isLoading}
                         >
-                          <TrashIcon className="h-5 w-5" />
+                          <Trash2 className="h-5 w-5" />
                         </button>
                       </div>
                     </td>

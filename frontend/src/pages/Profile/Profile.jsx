@@ -2,18 +2,18 @@ import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { toast } from 'react-hot-toast';
 import {
-  UserIcon,
-  PencilIcon,
-  CalendarIcon,
-  EyeIcon,
-  ChatBubbleLeftRightIcon,
-  HeartIcon,
-  BookmarkIcon,
-  DocumentTextIcon,
-  CogIcon,
-  PhotoIcon
-} from '@heroicons/react/24/outline';
-import { useAuth } from '../../context/AuthContext';
+   User,
+   Edit,
+   Calendar,
+   Eye,
+   MessageCircle,
+   Heart,
+   Bookmark,
+   FileText,
+   Settings,
+   Image
+} from 'lucide-react';
+import { useAuth } from '../../components/context/AuthContext';
 import LoadingSpinner from '../../components/common/LoadingSpinner';
 import PostCard from '../../components/blog/PostCard';
 import ProfileEditForm from '../../components/profile/ProfileEditForm';
@@ -97,10 +97,10 @@ const Profile = () => {
   }
 
   const tabs = [
-    { id: 'posts', name: 'My Posts', icon: DocumentTextIcon, count: userPosts.length },
-    { id: 'liked', name: 'Liked Posts', icon: HeartIcon, count: likedPosts.length },
-    { id: 'bookmarked', name: 'Bookmarks', icon: BookmarkIcon, count: bookmarkedPosts.length },
-    { id: 'settings', name: 'Settings', icon: CogIcon, count: null },
+    { id: 'posts', name: 'My Posts', icon:  FileText, count: userPosts.length },
+    { id: 'liked', name: 'Liked Posts', icon:  Heart, count: likedPosts.length },
+    { id: 'bookmarked', name: 'Bookmarks', icon:  Bookmark, count: bookmarkedPosts.length },
+    { id: 'settings', name: 'Settings', icon:  Setting, count: null },
   ];
 
   const getContentByTab = () => {
@@ -116,7 +116,7 @@ const Profile = () => {
         if (userPosts.length === 0) {
           return (
             <div className="text-center py-12">
-              <DocumentTextIcon className="h-16 w-16 text-gray-400 dark:text-gray-600 mx-auto mb-4" />
+              < FileText className="h-16 w-16 text-gray-400 dark:text-gray-600 mx-auto mb-4" />
               <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
                 No posts yet
               </h3>
@@ -148,7 +148,7 @@ const Profile = () => {
         if (likedPosts.length === 0) {
           return (
             <div className="text-center py-12">
-              <HeartIcon className="h-16 w-16 text-gray-400 dark:text-gray-600 mx-auto mb-4" />
+              < Heart className="h-16 w-16 text-gray-400 dark:text-gray-600 mx-auto mb-4" />
               <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
                 No liked posts
               </h3>
@@ -177,7 +177,7 @@ const Profile = () => {
         if (bookmarkedPosts.length === 0) {
           return (
             <div className="text-center py-12">
-              <BookmarkIcon className="h-16 w-16 text-gray-400 dark:text-gray-600 mx-auto mb-4" />
+              < Bookmark className="h-16 w-16 text-gray-400 dark:text-gray-600 mx-auto mb-4" />
               <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
                 No bookmarks
               </h3>
@@ -221,12 +221,12 @@ const Profile = () => {
                     />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center">
-                      <UserIcon className="h-16 w-16 text-gray-400" />
+                      < User className="h-16 w-16 text-gray-400" />
                     </div>
                   )}
                 </div>
                 <button className="absolute bottom-0 right-0 bg-blue-600 text-white p-2 rounded-full hover:bg-blue-700 transition-colors duration-200">
-                  <PhotoIcon className="h-4 w-4" />
+                  < Image className="h-4 w-4" />
                 </button>
               </div>
 
@@ -242,7 +242,7 @@ const Profile = () => {
                     onClick={() => setIsEditing(!isEditing)}
                     className="p-2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 transition-colors duration-200"
                   >
-                    <PencilIcon className="h-5 w-5" />
+                    < Edit className="h-5 w-5" />
                   </button>
                 </div>
                 <p className="text-gray-600 dark:text-gray-400 mb-4">@{user.username}</p>
@@ -256,13 +256,13 @@ const Profile = () => {
                 {/* Stats */}
                 <div className="flex flex-wrap justify-center md:justify-start gap-6 text-sm">
                   <div className="flex items-center space-x-2">
-                    <DocumentTextIcon className="h-4 w-4 text-gray-500" />
+                    < FileText className="h-4 w-4 text-gray-500" />
                     <span className="text-gray-600 dark:text-gray-400">
                       {userStats.postsCount || 0} posts
                     </span>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <CalendarIcon className="h-4 w-4 text-gray-500" />
+                    < Calendar className="h-4 w-4 text-gray-500" />
                     <span className="text-gray-600 dark:text-gray-400">
                       Joined {new Date(user.createdAt).toLocaleDateString('en-US', {
                         month: 'short',
@@ -271,13 +271,13 @@ const Profile = () => {
                     </span>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <EyeIcon className="h-4 w-4 text-gray-500" />
+                    < Eye className="h-4 w-4 text-gray-500" />
                     <span className="text-gray-600 dark:text-gray-400">
                       {userStats.totalViews || 0} total views
                     </span>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <ChatBubbleLeftRightIcon className="h-4 w-4 text-gray-500" />
+                    < MessageCircle className="h-4 w-4 text-gray-500" />
                     <span className="text-gray-600 dark:text-gray-400">
                       {userStats.totalComments || 0} comments
                     </span>

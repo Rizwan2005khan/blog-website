@@ -2,12 +2,16 @@
 import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useParams, Link } from 'react-router-dom';
-import { categoryService } from '../../services/categoryService';
-import { postService } from '../../services/postService';
+import  categoryService  from '../../services/categories';
+import  postService  from '../../services/posts';
 import LoadingSpinner from '../../components/common/LoadingSpinner';
 import ErrorMessage from '../../components/common/ErrorMessage';
 import PostCard from '../../components/blog/PostCard';
-import { ChevronRightIcon, TagIcon, CalendarIcon, UserIcon } from '@heroicons/react/24/outline';
+import { 
+   ChevronRight, 
+   Tag, 
+   Calendar
+ } from 'lucide-react';
 
 const Categories = () => {
   const { categorySlug } = useParams();
@@ -50,13 +54,13 @@ const Categories = () => {
             <Link to="/" className="text-gray-500 hover:text-gray-700">
               Home
             </Link>
-            <ChevronRightIcon className="h-4 w-4 text-gray-400" />
+            < ChevronRight className="h-4 w-4 text-gray-400" />
             <Link to="/categories" className="text-gray-500 hover:text-gray-700">
               Categories
             </Link>
             {categorySlug && currentCategory && (
               <>
-                <ChevronRightIcon className="h-4 w-4 text-gray-400" />
+                < ChevronRight className="h-4 w-4 text-gray-400" />
                 <span className="text-gray-900 font-medium">{currentCategory.name}</span>
               </>
             )}
@@ -135,7 +139,7 @@ const Categories = () => {
                     to={`/tags/${tag.toLowerCase()}`}
                     className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-800 hover:bg-gray-200 transition-colors"
                   >
-                    <TagIcon className="h-3 w-3 mr-1" />
+                    < Tag className="h-3 w-3 mr-1" />
                     {tag}
                   </Link>
                 ))}
@@ -158,11 +162,11 @@ const Categories = () => {
                     )}
                     <div className="flex items-center gap-4 text-sm text-gray-500">
                       <span className="flex items-center gap-1">
-                        <CalendarIcon className="h-4 w-4" />
+                        < Calendar className="h-4 w-4" />
                         Created {new Date(currentCategory.createdAt).toLocaleDateString()}
                       </span>
                       <span className="flex items-center gap-1">
-                        <TagIcon className="h-4 w-4" />
+                        < Tag className="h-4 w-4" />
                         {categoryPosts?.pagination?.total || 0} posts
                       </span>
                     </div>
@@ -225,7 +229,7 @@ const Categories = () => {
                 {categoryPosts?.data?.length === 0 && !postsLoading && (
                   <div className="text-center py-12">
                     <div className="text-gray-400 mb-4">
-                      <TagIcon className="h-16 w-16 mx-auto" />
+                      < Tag className="h-16 w-16 mx-auto" />
                     </div>
                     <h3 className="text-lg font-medium text-gray-900 mb-2">
                       No posts found
@@ -275,7 +279,7 @@ const Categories = () => {
                         <span className="text-gray-500">
                           {category.postCount || 0} posts
                         </span>
-                        <ChevronRightIcon className="h-4 w-4 text-gray-400" />
+                        < ChevronRight className="h-4 w-4 text-gray-400" />
                       </div>
                     </Link>
                   ))}

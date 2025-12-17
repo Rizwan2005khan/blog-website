@@ -20,23 +20,23 @@ import Tags from './pages/Tags/Tags'
 import NotFound from './pages/NotFound/NotFound'
 
 // Admin Pages
-import AdminDashboard from './pages/Admin/AdminDashboard'
-import ManagePosts from './pages/Admin/ManagePosts'
-import ManageUsers from './pages/Admin/ManageUsers'
-import ManageCategories from './pages/Admin/ManageCategories'
-import CommentModeration from './pages/Admin/CommentModeration'
-import NewsletterAdmin from './pages/Admin/Newsletter'
-import AnalyticsDashboard from './pages/Admin/Analytics'
-import SiteSettings from './pages/Admin/SiteSettings'
-import BackupRestore from './pages/Admin/BackupRestore'
-import MonitoringDashboard from './pages/Admin/Monitoring'
-import APIDocumentation from './pages/Admin/APIDocumentation'
+import AdminDashboard from './pages/Admin/AdminDashboard/AdminDashboard'
+import ManagePosts from './pages/Admin/ManagePosts/ManagePosts'
+import ManageUsers from './pages/Admin/ManageUsers/ManageUsers'
+import ManageCategories from './pages/Admin/ManageCategories/ManageCategories'
+import CommentModeration from './pages/Admin/CommentModeration/CommentModeration'
+import NewsletterAdmin from './pages/Admin/Newsletter/NewsletterAdmin'
+import AnalyticsDashboard from './pages/Admin/Analytics/AnalyticsDashboard'
+import SiteSettings from './pages/Admin/SiteSettings/SiteSettings'
+import BackupRestore from './pages/Admin/BackupRestore/BackupRestore'
+import MonitoringDashboard from './pages/Admin/Monitoring/MonitoringDashboard'
+import APIDocumentation from './pages/Admin/APIDocumentation/APIDocumentation'
 
 // Global Styles
-import './styles/global.css'
-import './styles/animations.css'
-import './styles/components.css'
-import './styles/utilities.css'
+// import './styles/global.css'
+// import './styles/animations.css'
+// import './styles/components.css'
+// import './styles/utilities.css'
 
 function App() {
   const { user } = useAuth()
